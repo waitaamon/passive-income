@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # make-money-online-frontend
 
 ## Project setup
@@ -27,3 +28,7 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+=======
+# passive-income
+vue js firebase admin dash
+>>>>>>> 65491c6ef88af06d79bfe65355738b93832bc7c9
