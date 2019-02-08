@@ -1,9 +1,9 @@
-export const setValidationErrors = ({commit}, errors) => {
+export const setError = ( {commit}, error) => {
   
-  commit('setValidationErrors', errors)
+  commit('setError', error)
 }
 
-export const clearValidationErrors = ({ commit }) => {
+export const clearError = ({ commit }) => {
   
-  commit('setValidationErrors', [])
+  commit('setError', null)
 }

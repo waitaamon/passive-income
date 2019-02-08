@@ -1,28 +1,28 @@
 <template>
   <div>
-    <navigation></navigation>
-
-    <div class="container">
-
-        <h3 class="h3 text-center mb-5 pb-5 text-bold">MAKE MONEY ONLINE</h3>
+    <div class="container ">
+      <div class="row">
+        <div class="col-sm-12 text-center mt-5">
+          <img src="@/assets/logo.jpg" width="15%"  alt="Make money online">
+        </div>
+      </div>
 
       <router-view></router-view>
 
     </div>
-
   </div>
 </template>
 
 <script>
-import Navigation from './components/Navigation'
+
 export default {
   name: 'app',
   components: {
-    Navigation
+
   }
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

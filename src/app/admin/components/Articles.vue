@@ -1,17 +1,23 @@
 <template>
-    <div class="row">
-        <div class="col-sm-6 mb-5" v-for="(article, index) in articles" :key="index">
-            <div class="card">
-                <img :src="article.imagePath" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">{{ article.title}}</h5>
-                    <p class="card-text"><p v-html="article.description.substring(0, 200)"></p>
-                    <button @click="edit(index)" class="btn btn-success btn-block btn-outline">Edit</button>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 mb-5">
+                <router-link :to="{name: 'new-article'}" class="btn btn-warning">New Article</router-link>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 mb-5" v-for="(article, index) in articles" :key="index">
+                <div class="card">
+                    <img :src="article.imagePath" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ article.title}}</h5>
+                        <p class="card-text"><p v-html="article.description.substring(0, 200)"></p>
+                        <button @click="edit(index)" class="btn btn-success btn-block btn-outline">Edit</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
 </template>
 
 <script>

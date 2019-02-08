@@ -3,7 +3,7 @@ import { Login } from '../components'
 
 export default [
   {
-    path: '/sign-in',
+    path: '/',
     component: Login,
     name: 'login',
     meta: {

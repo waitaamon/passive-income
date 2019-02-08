@@ -1,22 +1,28 @@
 <template>
-    <div class="col-sm-6 offset-3">
-        <form @submit.prevent="submit">
-            <div class="form-group" :class="{ 'has-error': 'validation.email'}">
-                <label for="email">Email address</label>
-                <input type="email" class="form-control" id="email"  placeholder="Enter email" v-model="form.email">
-                <small class="help-block text-muted" v-if="validation.email">
-                    {{ validation.email[0] }}
-                </small>
+    <div class="row">
+        <div class="col-sm-6 offset-3">
+            <div class="alert alert-danger alert-dismissable" v-if="error !== null">
+               {{ error.message }}
             </div>
-            <div class="form-group" :class="{ 'has-error': 'validation.password'}">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Password" v-model="form.password">
-                <small class="help-block text-muted" v-if="validation.email">
-                    {{ validation.email[0] }}
-                </small>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">Login</button>
-        </form>
+            <form @submit.prevent="submit">
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input type="email" class="form-control" id="email"  placeholder="Enter email" v-model="form.email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Password" v-model="form.password">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" v-if="!loading">Login</button>
+                <div class="row">
+                    <div class="col-sm-6 offset-3 text-center" v-if="loading">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </template>
 
@@ -35,8 +41,9 @@
     },
     computed: {
       ...mapGetters({
-        validation: 'getValidationErrors'
-      })
+        error: 'getError',
+        loading: 'loading'
+      }),
     },
     methods: {
       ...mapActions({
@@ -44,7 +51,7 @@
       }),
       submit() {
         this.login(this.form).then(() => {
-            this.$router.replace({name: 'dashboard'})
+            this.$router.replace({ name: 'articles' })
         })
       }
     }

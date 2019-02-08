@@ -2,7 +2,7 @@ import { HomePage } from '../components'
 
 export default [
   {
-    path: '/',
+    path: '/home',
     component: HomePage,
     name: 'homepage',
     meta: {

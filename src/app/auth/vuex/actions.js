@@ -1,32 +1,34 @@
-import axios from 'axios'
 import firebase from 'firebase'
 
 export const login = ({ commit }, payload) => {
   
+  commit('setLoading', true, {root: true})
+  
   firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
-    .then(user => {
-      commit('setUser', user)
-      commit('setIsAuthenticated', true)
-    })
-    .catch(() => {
-      commit('setUser', null);
-      commit('setIsAuthenticated', false);
-    })
+    .then(data => {
+      
+        const newUser = {
+          id: data.user.uid,
+          email: data.user.email,
+        }
+        
+        commit('setLoading', false, {root: true})
+      
+        commit('setIsAuthenticated', true)
+      
+        commit('setUser', newUser)
+      }
+    )
+    .catch(error => {
+        commit('setLoading', false, {root: true})
+        commit('setError', error, { root: true })
+      }
+    )
 };
 
-
-export const logout = ( { dispatch }) => {
-
-    return axios.post('/api/logout').then(() => {
-
-        dispatch('clearAuth')
-
-    })
-};
-
-export const clearAuth = ( { commit } ) => {
-
-    commit('setAuthenticated', false);
-    commit('setUserData', null);
-    commit('setToken', null)
+export const logout = ({ commit }) => {
+  firebase.auth().signOut()
+  
+  commit('setUser', null)
+  
 };
