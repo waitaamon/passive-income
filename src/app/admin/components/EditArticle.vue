@@ -13,7 +13,8 @@
 
                 <tinymce id="d1" v-model="form.description"></tinymce>
 
-                <button type="submit" class="btn btn-primary mt-5">Update</button>
+                <button type="submit" class="btn btn-primary mt-5">Update</button>  &nbsp;
+                <button class="btn btn-danger mt-5" @click="deleteArticle">Delete</button>
             </form>
         </div>
     </div>
@@ -30,16 +31,16 @@
     data() {
       return {
         form: {
+          id: '',
           description: '',
           imagePath: '',
           title: ''
         }
-
       }
     },
     computed: {
       ...mapGetters({
-        articles: 'article/getArticles'
+        article: 'article/getArticle',
       }),
     },
     methods: {
@@ -47,10 +48,30 @@
         updateArticle: 'article/updateArticle'
       }),
       submit() {
+        if(this.form.title === '' || this.form.description === '' || this.form.imagePath === '' ) {
+          this.$toast.error({
+            title:'Error',
+            message:'All fields are required.'
+          })
+          return
+        }
         this.updateArticle(this.form).then(() => {
+          this.$toast.success({
+            title:'Success',
+            message:'Successfully updated article.'
+          })
           this.$router.replace({name: 'articles'})
         })
+      },
+      deleteArticle() {
+
       }
+    },
+    mounted () {
+      this.form.id = this.article.id
+      this.form.title = this.article.title
+      this.form.imagePath = this.article.imagePath
+      this.form.description = this.article.description
     }
   }
 </script>

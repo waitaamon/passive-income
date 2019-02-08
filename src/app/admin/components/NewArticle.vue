@@ -42,7 +42,18 @@
           newArticle: 'article/newArticle'
         }),
         submit() {
+          if(this.form.title === '' || this.form.description === '' || this.form.imagePath === '' ) {
+            this.$toast.error({
+              title:'Error',
+              message:'All fields are required.'
+            })
+            return
+          }
            this.newArticle(this.form).then(() => {
+             this.$toast.success({
+               title:'Successfully created',
+               message:'Successfully created article.'
+             })
              this.$router.replace({name: 'articles'})
            })
         }

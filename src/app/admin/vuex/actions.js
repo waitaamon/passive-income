@@ -42,11 +42,17 @@ export const newArticle = ({ commit }, payload ) => {
     })
 }
 
+export const setArticle = ({commit}, payload) => {
+
+  commit('setArticle', payload)
+  
+}
+
 export const updateArticle = ({commit}, payload ) => {
   
   return firebase.database().ref('articles').push(payload).then((data) => {
     
-    commit('createArticle', payload)
+    commit('updateArticle', payload)
     
     return Promise.resolve(data)
   })

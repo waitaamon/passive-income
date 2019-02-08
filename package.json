@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "cxlt-vue2-toastr": "^1.1.0",
     "firebase": "^5.8.2",
     "lodash": "^4.17.11",
     "vue": "^2.5.22",
