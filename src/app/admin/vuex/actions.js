@@ -50,10 +50,20 @@ export const setArticle = ({commit}, payload) => {
 
 export const updateArticle = ({commit}, payload ) => {
   
-  return firebase.database().ref('articles').push(payload).then((data) => {
-    
-    commit('updateArticle', payload)
-    
-    return Promise.resolve(data)
-  })
+  commit('setLoading', false, {root: true})
+  
+  let article = {
+    title: payload.title,
+    description: payload.description,
+    imagePath: payload.imagePath,
+  }
+  
+  return firebase.database().ref('articles').child(payload.id).set(article)
+}
+
+export const deleteArticle = ({commit}, id ) => {
+  
+  commit('setLoading', false, {root: true})
+  
+  return firebase.database().ref('articles').child(id).remove()
 }

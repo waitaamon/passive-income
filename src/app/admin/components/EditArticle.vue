@@ -1,5 +1,5 @@
 <template>
-    <div class="row">
+    <div class="row mb-5">
         <div class="col-sm-8 offset-sm-2">
             <form @submit.prevent="submit">
                 <div class="form-group">
@@ -8,21 +8,23 @@
                 </div>
                 <div class="form-group">
                     <label for="image">Image Url</label>
-                    <input type="text" class="form-control" id="image" placeholder="Featured image" v-model="form.imagePath">
+                    <input type="text" class="form-control" id="image" placeholder="Featured image"
+                           v-model="form.imagePath">
                 </div>
 
                 <tinymce id="d1" v-model="form.description"></tinymce>
 
-                <button type="submit" class="btn btn-primary mt-5">Update</button>  &nbsp;
-                <button class="btn btn-danger mt-5" @click="deleteArticle">Delete</button>
+                <button type="submit" class="btn btn-primary mt-5">Update</button> &nbsp;
             </form>
+            <button class="btn btn-danger mt-5" @click="deleteArt">Delete</button>
         </div>
     </div>
 </template>
 
 <script>
   import tinymce from 'vue-tinymce-editor'
-  import { mapActions, mapGetters } from 'vuex'
+  import {mapActions, mapGetters} from 'vuex'
+
   export default {
     name: 'edit-article',
     components: {
@@ -45,29 +47,37 @@
     },
     methods: {
       ...mapActions({
-        updateArticle: 'article/updateArticle'
+        updateArticle: 'article/updateArticle',
+        deleteArticle: 'article/deleteArticle'
       }),
       submit() {
-        if(this.form.title === '' || this.form.description === '' || this.form.imagePath === '' ) {
+        if (this.form.title === '' || this.form.description === '' || this.form.imagePath === '') {
           this.$toast.error({
-            title:'Error',
-            message:'All fields are required.'
+            title: 'Error',
+            message: 'All fields are required.'
           })
           return
         }
         this.updateArticle(this.form).then(() => {
           this.$toast.success({
-            title:'Success',
-            message:'Successfully updated article.'
+            title: 'Success',
+            message: 'Successfully updated article.'
           })
           this.$router.replace({name: 'articles'})
         })
       },
-      deleteArticle() {
-
+      deleteArt() {
+        this.deleteArticle(this.article.id)
+          .then(() => {
+            this.$toast.success({
+              title: 'Success',
+              message: 'Successfully deleted article.'
+            })
+            this.$router.replace({name: 'articles'})
+          })
       }
     },
-    mounted () {
+    mounted() {
       this.form.id = this.article.id
       this.form.title = this.article.title
       this.form.imagePath = this.article.imagePath
